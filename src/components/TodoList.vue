@@ -5,18 +5,24 @@
         <input v-model="newTaskText" placeholder="Введите новую задачу" required />
         <button type="submit">Добавить</button>
       </form>
-     
+      
+      
     </div>
   </template>
   
   <script>
-  import TaskItem from './TaskItem.vue';
+
   
   export default {
   
+    props: {
+      tasks: {
+        type: Array,
+        default: () => []
+      }
+    },
     data() {
       return {
-        tasks: [],
         newTaskText: '',
         nextId: 1
       };
@@ -32,11 +38,14 @@
           this.tasks.push(newTask);
           this.newTaskText = '';
         }
-      },
-    }
+      }
   }
+};
+
+
+
   </script>
   
-  <style>
-  /* Ваши стили для родительского компонента */
+  <style scoped>
+ 
   </style>

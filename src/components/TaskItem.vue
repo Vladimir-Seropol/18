@@ -16,12 +16,12 @@
 // import TodoList from './TodoList.vue';
 
 export default {
-    // name: 'TaskItem',
-    // props: ['task', 'text', 'id'],
+
     props: {
+    tasks: [],
     task: {
-      type: Object,
-      required: true
+    type: Object,
+    required: true
     }
   },
    
@@ -31,16 +31,16 @@ methods: {
         this.$emit('remove', this.task.id);
       },
       toggleCompletion(task) {
-        // task.completed = !task.completed;
-        this.$emit('toggle', task);
+        task.completed = !task.completed;
+        // this.$emit('toggle', task);
 
         
       }
 }
-}
+};
 </script>
 
-<style>
+<style scoped>
 .completed {
             text-decoration: line-through;
             color: gray;

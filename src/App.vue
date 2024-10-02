@@ -4,9 +4,7 @@
 
   <div id="app">
    <TodoList  />
-
-  
-      <TaskItem />
+<TaskItem  :task="task"/>
   
 
 
@@ -21,13 +19,7 @@ import TodoList from './components/TodoList.vue';
 
 export default {
 
-    data() {
-    return {
-      tasks: [], 
-      newTaskText: '',
-      nextId: 1
-    };
-  },
+
   components: {
     TodoList,
 
