@@ -2,9 +2,9 @@
 
 <template>
 
-  <div id="app">
+  <div id="container">
    <TodoList  />
-<TaskItem  :task="task"/>
+<TaskItem  />
   
 
 
@@ -13,27 +13,18 @@
 </template>
 
 
-<script>
-import TaskItem from './components/TaskItem.vue';
+<script setup>
+
 import TodoList from './components/TodoList.vue';
-
-export default {
-
-
-  components: {
-    TodoList,
-
-    TaskItem,
-  },
-  
-  };
-
 
 </script>
 
 
-<style>
+<style scoped>
 
-
-
+.container {
+    width: 300px;
+    height: auto;
+    
+}
 </style>

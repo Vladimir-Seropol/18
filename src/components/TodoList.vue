@@ -1,51 +1,64 @@
 <template>
-    <div>
+    <section>
       <h2>Список задач</h2>
       <form @submit.prevent="addTask">
-        <input v-model="newTaskText" placeholder="Введите новую задачу" required />
+        <input type="text" placeholder="Введите новую задачу" v-model="newTask" required />
         <button type="submit">Добавить</button>
       </form>
-      
-      
-    </div>
-  </template>
-  
-  <script>
 
-  
-  export default {
-  
-    props: {
-      tasks: {
-        type: Array,
-        default: () => []
-      }
-    },
+      <TaskItem 
+        v-for="task in renderTask" 
+        :task="task" 
+        :key="task.id"
+        @del="deleteTask"
+        @toggle="toggleCompletion"/>
+      
+    </section>
+</template>
+
+<script>
+import TaskItem from './TaskItem.vue';
+let id = 0;
+
+export default {
     data() {
-      return {
-        newTaskText: '',
-        nextId: 1
-      };
+        return {
+            tasks: [],
+            newTask: ''
+        };
+    },
+    components: {
+        TaskItem,
+    },
+    computed: {
+        renderTask() {
+            return this.tasks;
+        }
     },
     methods: {
-      addTask() {
-        if (this.newTaskText.trim()) {
-          const newTask = {
-            id: this.nextId++,
-            text: this.newTaskText,
-            completed: false
-          };
-          this.tasks.push(newTask);
-          this.newTaskText = '';
+        addTask() {
+            if (this.newTask.trim()) {
+                this.tasks.unshift({
+                    id: id++,
+                    text: this.newTask,
+                    completed: false
+                });
+                this.newTask = '';
+            }
+        },
+        deleteTask(id) {
+            this.tasks = this.tasks.filter(task => task.id !== id);
+        },
+        toggleCompletion(task) {
+            task.completed = !task.completed;
         }
-      }
-  }
+    }
+};
+</script>
+
+<style scoped>
+button {
+margin-left: 10px;
 };
 
-
-
-  </script>
-  
-  <style scoped>
- 
-  </style>
+</style>

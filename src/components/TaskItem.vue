@@ -1,48 +1,53 @@
 <template>
- 
- <div v-for="task in tasks" :key="task.id">
-        <span :class="{ completed: task.completed }">{{ task.text }}</span>
-        <button @click="toggleCompletion(task)">✔️</button>
-        <button @click="removeTask(task.id)">❌</button>
-      </div>
-        
-  
-
-
-</template>
-
-
-<script>
-// import TodoList from './TodoList.vue';
-
-export default {
-
-    props: {
-    tasks: [],
-    task: {
-    type: Object,
-    required: true
-    }
-  },
+    <ol>
+        <li :class="{ completed: task.completed }">
+           <span>{{ task.text }}</span>
+           <div class="button">
+            <button @click="toggleCompletion(task)">✔️</button>
+           <button @click="deleteTask(task.id)">❌</button>
+           </div>
+           
+         </li>
+    </ol>
+   </template>
    
-methods: {
-    removeTask(id) {
-        // this.tasks = this.tasks.filter(task => task.id !== id);
-        this.$emit('remove', this.task.id);
-      },
-      toggleCompletion(task) {
-        task.completed = !task.completed;
-        // this.$emit('toggle', task);
+   <script>
+   export default {
+       props: {
+           task: {
+               type: Object,
+               required: true
+           }
+       },
+       methods: {
+           deleteTask(id) {
+               this.$emit('del', id);
+           },
+           toggleCompletion(task) {
+               this.$emit('toggle', task);
+           }
+       }
+   };
+   </script>
+   
+   <style scoped>
+   li{
+    margin: 10px;
+   }
+   .completed {
+    text-decoration: line-through;
+    color: gray;
+    background-color: #f0f0f0;
+   }
 
-        
-      }
-}
-};
-</script>
-
-<style scoped>
-.completed {
-            text-decoration: line-through;
-            color: gray;
-}
-</style>
+ 
+   li{
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    border-bottom: 1px solid wheat;
+   }
+   button{
+    margin-right: 5px;
+   }
+   </style>
